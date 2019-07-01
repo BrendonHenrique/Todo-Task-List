@@ -1,3 +1,3 @@
 # Quasar App
 
-> WIP
+Take a look at :  http://personaltasklist.surge.sh/#/

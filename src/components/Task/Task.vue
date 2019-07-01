@@ -25,10 +25,19 @@
     </q-item-section>
 
     <q-item-section side>
-      <q-btn flat round dense color="red-5" class="bg-blue-grey-10" icon="delete"
-      @click.stop="pronpToDelete(id)">
-      </q-btn>
+      <div class="row">
+        <q-btn flat round dense color="secundary" class="bg-blue-grey-10" icon="edit"
+        @click.stop="showEditTask = true">
+        </q-btn>
+        <q-btn flat round dense color="red-5" class="bg-blue-grey-10" icon="delete"
+        @click.stop="pronpToDelete(id)">
+        </q-btn>
+      </div>
     </q-item-section>
+
+    <q-dialog v-model="showEditTask" transition-show="flip-down" transition-hide="flip-up" >
+      <edit-task :task="task" :id="id" @close="showEditTask = false" />
+    </q-dialog>
 
   </q-item>
 </template>
@@ -43,6 +52,11 @@ export default {
   props: [
     'task', 'id'
   ],
+  data () {
+    return {
+      showEditTask: false
+    }
+  },
   methods: {
     ...mapActions('tasks', ['updateTask', 'deleteTask']),
     pronpToDelete (id) {
@@ -55,6 +69,9 @@ export default {
         this.deleteTask(id)
       })
     }
+  },
+  components: {
+    'edit-task': require('components/Task/Modals/Edittask.vue').default
   }
 }
 

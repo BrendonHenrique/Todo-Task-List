@@ -9,12 +9,18 @@ const state = {
   // FireBase Using
 
   tasks: {
-  //   'ID1': {
-  //     name: 'Develop',
-  //     completed: false,
-  //     dueDate: '18/12/2019',
-  //     dueTime: '01:23'
-  //   }
+    'ID1': {
+      name: 'Develop',
+      completed: false,
+      dueDate: '18/12/2019',
+      dueTime: '01:23'
+    },
+    'ID2': {
+      name: 'Code',
+      completed: false,
+      dueDate: '11/12/2019',
+      dueTime: '02:23'
+    }
   },
 
   foo: 'vuex are awasome'
@@ -56,10 +62,28 @@ const actions = {
 
 const getters = {
 
-  tasks: (state) => {
-    return state.tasks
-  },
+  tasksTodo: (state) => {
+    let tasks = {}
+    Object.keys(state.tasks).forEach((key) => {
+      let task = state.tasks[key]
+      if (!task.completed) {
+        tasks[key] = task
+      }
+    })
 
+    return tasks
+  },
+  tasksCompleted: (state) => {
+    let tasks = {}
+    Object.keys(state.tasks).forEach((key) => {
+      let task = state.tasks[key]
+      if (task.completed) {
+        tasks[key] = task
+      }
+    })
+
+    return tasks
+  },
   foo: (state) => {
     return state.foo
   }
